@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post Item | REVA Campus Lost & Found</title>
+    <link rel="stylesheet" href="post.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <span class="badge">REVA University</span>
+        <h1>Campus Lost & Found</h1>
+        <p>
+          Post an item to help re-connect lost belongings with their owners.
+        </p>
+      </header>
+
+      <form id="postForm">
+        <!-- Listing Type Selector -->
+        <div class="form-group">
+          <label>Listing Type</label>
+          <div class="toggle-container">
+            <label class="radio-card lost">
+              <input type="radio" name="postType" value="lost" checked />
+              <span>Lost Item</span>
+            </label>
+            <label class="radio-card found">
+              <input type="radio" name="postType" value="found" />
+              <span>Found Item</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Item Name -->
+        <div class="form-group">
+          <label for="itemTitle">Item Name *</label>
+          <input
+            type="text"
+            id="itemTitle"
+            placeholder="e.g., Blue ID Card / Black Laptop Bag"
+            required
+          />
+        </div>
+
+        <!-- Category & Date Grid -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category">
+              <option value="Electronics">Electronics</option>
+              <option value="ID Cards / Docs">ID Cards & Documents</option>
+              <option value="Keys & Wallets">Keys & Wallets</option>
+              <option value="Books & Stationery">Books & Stationery</option>
+              <option value="Clothing & Accessories">
+                Clothing & Accessories
+              </option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="date">Date *</label>
+            <input type="date" id="date" required />
+          </div>
+        </div>
+
+        <!-- Location -->
+        <div class="form-group">
+          <label for="location">Campus Location *</label>
+          <input
+            type="text"
+            id="location"
+            placeholder="e.g., SVB Block - 2nd Floor / Canteen"
+            required
+          />
+        </div>
+
+        <!-- Contact Information -->
+        <div class="form-group">
+          <label for="contact">Contact Info *</label>
+          <input
+            type="text"
+            id="contact"
+            placeholder="Phone number or Student Email"
+            required
+          />
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+          <label for="description">Additional Details</label>
+          <textarea
+            id="description"
+            placeholder="Describe distinct features, scratches, brand, color..."
+          ></textarea>
+        </div>
+
+        <!-- Photo Upload & Live Preview -->
+        <div class="form-group">
+          <label for="photo">Upload Photo</label>
+          <div class="file-upload-box">
+            <input type="file" id="photo" accept="image/*" />
+            <div class="upload-label">
+              <span class="upload-icon">📷</span>
+              <span>Click or drag image to upload</span>
+            </div>
+          </div>
+
+          <!-- Live Image Preview Box -->
+          <div id="previewImgContainer" class="preview-container">
+            <p class="preview-title">Photo Preview</p>
+            <img id="imagePreview" src="" alt="Selected Preview" />
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="submit-btn">Publish Post ✨</button>
+      </form>
+    </div>
+
+<script type="module" src="app.js"></script>
+<script src="post.js"></script>
+</body>
+</html>

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>REVA Lost & Found</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            🔎 REVA Lost & Found
+        </div>
+
+       <a href="post.html" class="post-btn">
+    + Post Item
+</a>
+
+    </nav>
+
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- Hero Section -->
+        <section class="hero">
+
+            <h1>
+                Lost something?<br>
+                <span>Let's help you find it.</span>
+            </h1>
+
+            <p>
+                A campus community board to report lost items
+                and return found belongings.
+            </p>
+
+        </section>
+
+
+        <!-- Search and Filters -->
+        <section class="search-section">
+
+            <div class="search-box">
+
+                🔍
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search for an item..."
+                >
+
+            </div>
+
+
+            <div class="filters">
+
+                <button
+                    class="filter-btn active"
+                    data-filter="all">
+                    All
+                </button>
+
+                <button
+                    class="filter-btn"
+                    data-filter="Lost">
+                    Lost
+                </button>
+
+                <button
+                    class="filter-btn"
+                    data-filter="Found">
+                    Found
+                </button>
+
+
+                <select id="categoryFilter">
+
+                    <option value="all">
+                        All Categories
+                    </option>
+
+                    <option value="Electronics">
+                        Electronics
+                    </option>
+
+                    <option value="Documents">
+                        Documents
+                    </option>
+
+                    <option value="Clothing">
+                        Clothing
+                    </option>
+
+                    <option value="Accessories">
+                        Accessories
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+        </section>
+
+
+        <!-- Items -->
+        <section class="items-section">
+
+            <div class="section-header">
+
+                <h2>Recent Items</h2>
+
+                <span>
+                    Campus Reports
+                </span>
+
+            </div>
+
+
+            <!-- Firebase cards will appear here -->
+            <div id="items-container">
+
+                <p>Loading items...</p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- POST ITEM FORM -->
+
+    <div
+        class="form-overlay"
+        id="formOverlay"
+    >
+
+        <div class="form-box">
+
+            <button
+                class="close-btn"
+                onclick="closeForm()"
+            >
+                ×
+            </button>
+
+
+            <h2>
+                Post a Lost or Found Item
+            </h2>
+
+            <p class="form-subtitle">
+                Help someone find what they've lost.
+            </p>
+
+
+            <form id="post-form">
+
+
+                <!-- Item Type -->
+
+                <label for="item-type">
+                    Item Status
+                </label>
+
+                <select
+                    id="item-type"
+                    required
+                >
+
+                    <option value="Lost">
+                        Lost
+                    </option>
+
+                    <option value="Found">
+                        Found
+                    </option>
+
+                </select>
+
+
+                <!-- Item Title -->
+
+                <label for="item-title">
+                    Item Name
+                </label>
+
+                <input
+                    type="text"
+                    id="item-title"
+                    placeholder="e.g. Black Wallet"
+                    required
+                >
+
+
+                <!-- Category -->
+
+                <label for="item-category">
+                    Category
+                </label>
+
+                <select
+                    id="item-category"
+                    required
+                >
+
+                    <option value="">
+                        Select category
+                    </option>
+
+                    <option value="Electronics">
+                        Electronics
+                    </option>
+
+                    <option value="Documents">
+                        Documents
+                    </option>
+
+                    <option value="Clothing">
+                        Clothing
+                    </option>
+
+                    <option value="Accessories">
+                        Accessories
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+
+                <!-- Location -->
+
+                <label for="item-location">
+                    Location
+                </label>
+
+                <input
+                    type="text"
+                    id="item-location"
+                    placeholder="e.g. SVB Block A"
+                    required
+                >
+
+
+                <!-- Date -->
+
+                <label for="item-date">
+                    Date
+                </label>
+
+                <input
+                    type="date"
+                    id="item-date"
+                    required
+                >
+
+
+                <!-- Contact -->
+
+                <label for="item-contact">
+                    Contact
+                </label>
+
+                <input
+                    type="text"
+                    id="item-contact"
+                    placeholder="Email or phone number"
+                    required
+                >
+
+
+                <!-- Description -->
+
+                <label for="item-description">
+                    Description
+                </label>
+
+                <textarea
+                    id="item-description"
+                    placeholder="Describe the item..."
+                    rows="4"
+                    required
+                ></textarea>
+
+
+                <!-- Image URL -->
+
+                <label for="item-image">
+                    Image URL
+                </label>
+
+                <input
+                    type="url"
+                    id="item-image"
+                    placeholder="Paste an image URL"
+                >
+
+
+                <!-- Submit -->
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                >
+                    Post Item
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- Your teammate's Firebase JavaScript -->
+    <script type="module" src="app.js"></script>
+
+
+    <!-- Small UI functions -->
+    <script>
+
+        function openForm() {
+
+            document
+                .getElementById("formOverlay")
+                .classList.add("show");
+
+        }
+
+
+        function closeForm() {
+
+            document
+                .getElementById("formOverlay")
+                .classList.remove("show");
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
