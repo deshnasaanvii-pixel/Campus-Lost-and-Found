@@ -1,4 +1,3 @@
-/* Reset */
 * {
     margin: 0;
     padding: 0;
@@ -7,20 +6,22 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #f6f7fb;
+    background: linear-gradient(135deg, #dcd6ff 0%, #c9d9ff 50%, #d9efff 100%);
     color: #202124;
+    min-height: 100vh;
 }
 
 
 /* Navigation */
 .navbar {
     height: 70px;
-    background: white;
+    background: rgba(255, 255, 255, 0.96);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 7%;
     border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
 .logo {
@@ -36,10 +37,12 @@ body {
     border-radius: 10px;
     font-size: 15px;
     cursor: pointer;
+    transition: 0.2s ease;
 }
 
 .post-btn:hover {
     background: #4939c5;
+    transform: translateY(-1px);
 }
 
 
@@ -63,12 +66,12 @@ main {
 }
 
 .hero h1 span {
-    color: #5b4bdb;
+    color: #4f3fc7;
 }
 
 .hero p {
     font-size: 17px;
-    color: #6b7280;
+    color: #4b5563;
     max-width: 600px;
     line-height: 1.6;
 }
@@ -76,11 +79,12 @@ main {
 
 /* Search */
 .search-section {
-    background: white;
+    background: rgba(255, 255, 255, 0.97);
     padding: 22px;
     border-radius: 16px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #e3e5f5;
     margin-bottom: 40px;
+    box-shadow: 0 10px 30px rgba(67, 56, 150, 0.10);
 }
 
 .search-box {
@@ -91,6 +95,13 @@ main {
     border-radius: 10px;
     padding: 12px 15px;
     margin-bottom: 18px;
+    background: white;
+    transition: 0.2s ease;
+}
+
+.search-box:focus-within {
+    border-color: #5b4bdb;
+    box-shadow: 0 0 0 3px rgba(91, 75, 219, 0.10);
 }
 
 .search-box input {
@@ -98,6 +109,7 @@ main {
     outline: none;
     width: 100%;
     font-size: 15px;
+    background: transparent;
 }
 
 .filters {
@@ -112,6 +124,12 @@ main {
     background: white;
     border-radius: 8px;
     cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.filter-btn:hover {
+    border-color: #5b4bdb;
+    color: #5b4bdb;
 }
 
 .filter-btn.active {
@@ -120,11 +138,18 @@ main {
     border-color: #5b4bdb;
 }
 
-#categoryFilter {
+#category-filter {
     padding: 9px 12px;
     border: 1px solid #d1d5db;
     border-radius: 8px;
     margin-left: auto;
+    background: white;
+    cursor: pointer;
+    outline: none;
+}
+
+#category-filter:focus {
+    border-color: #5b4bdb;
 }
 
 
@@ -145,7 +170,7 @@ main {
 }
 
 .section-header span {
-    color: #6b7280;
+    color: #4b5563;
     font-size: 14px;
 }
 
@@ -159,15 +184,15 @@ main {
 
 .item-card {
     background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 16px;
+    border: 1px solid #e3e5f5;
+    border-radius: 18px;
     overflow: hidden;
-    transition: 0.2s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .item-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 14px 30px rgba(67, 56, 150, 0.15);
 }
 
 .item-image {
@@ -224,8 +249,16 @@ main {
 /* Mobile */
 @media (max-width: 800px) {
 
+    main {
+        width: 90%;
+    }
+
     .items-grid {
         grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding: 50px 0 35px;
     }
 
     .hero h1 {
@@ -236,10 +269,16 @@ main {
         flex-wrap: wrap;
     }
 
-    #categoryFilter {
+    #category-filter {
         margin-left: 0;
     }
+
+    .navbar {
+        padding: 0 5%;
+    }
 }
+
+
 /* Post Item Form */
 
 .form-overlay {
@@ -266,6 +305,7 @@ main {
     border-radius: 18px;
     padding: 30px;
     position: relative;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
 }
 
 .form-box h2 {
@@ -286,6 +326,11 @@ main {
     background: none;
     font-size: 30px;
     cursor: pointer;
+    color: #6b7280;
+}
+
+.close-btn:hover {
+    color: #202124;
 }
 
 .form-box form {
@@ -310,6 +355,7 @@ main {
     font-family: inherit;
     font-size: 14px;
     outline: none;
+    background: white;
 }
 
 .form-box textarea {
@@ -320,6 +366,7 @@ main {
 .form-box select:focus,
 .form-box textarea:focus {
     border-color: #5b4bdb;
+    box-shadow: 0 0 0 3px rgba(91, 75, 219, 0.08);
 }
 
 .status-options {
@@ -349,8 +396,10 @@ main {
     font-size: 15px;
     font-weight: bold;
     cursor: pointer;
+    transition: 0.2s ease;
 }
 
 .submit-btn:hover {
     background: #4939c5;
+    transform: translateY(-1px);
 }
