@@ -87,8 +87,8 @@ document.addEventListener("DOMContentLoaded", () => {
 // 3. LIVE SEARCH & FILTER LOGIC
 // -------------------------------------------------------------
 function filterItems(selectedType = "All") {
-  const searchInput =
-    document.getElementById("search-input")?.value.toLowerCase() || "";
+  const searchValue =
+    document.getElementById("searchInput")?.value.toLowerCase() || "";
 
   const categoryFilter =
     document.getElementById("category-filter")?.value || "All";
@@ -112,9 +112,9 @@ function filterItems(selectedType = "All") {
       card.getAttribute("data-type") || "";
 
     const matchesSearch =
-      title.includes(searchInput) ||
-      description.includes(searchInput) ||
-      location.includes(searchInput);
+      title.includes(searchValue) ||
+      description.includes(searchValue) ||
+      location.includes(searchValue);
 
     const matchesCategory =
       categoryFilter === "All" ||
@@ -134,11 +134,11 @@ function filterItems(selectedType = "All") {
 
 // Search and category filter
 document.addEventListener("DOMContentLoaded", () => {
-  const searchInput = document.getElementById("search-input");
+  const searchBox = document.getElementById("searchInput");
   const categoryFilter = document.getElementById("category-filter");
 
-  if (searchInput) {
-    searchInput.addEventListener("input", () => filterItems());
+  if (searchBox) {
+    searchBox.addEventListener("input", () => filterItems());
   }
 
   if (categoryFilter) {
@@ -150,13 +150,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      // Remove active from all buttons
       filterButtons.forEach((btn) => btn.classList.remove("active"));
 
-      // Make clicked button active
       button.classList.add("active");
 
-      // Get Lost, Found, or All
       const selectedType = button.getAttribute("data-filter");
 
       filterItems(
