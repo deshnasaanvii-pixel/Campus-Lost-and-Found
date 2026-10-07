@@ -1,3 +1,4 @@
+
 import { db, collection, addDoc, getDocs, query, orderBy, serverTimestamp } from "./firebase-config.js";
 
 // Collection Reference (Set to "posts" to match Person 3's form submission)
@@ -21,7 +22,7 @@ export async function fetchItems() {
       return;
     }
 
-    container.innerHTML = ""; // Clear loading text
+    container.innerHTML = "";
 
     querySnapshot.forEach((doc) => {
       const item = doc.data();
@@ -37,34 +38,45 @@ export async function fetchItems() {
 // Helper function to build single HTML card
 function renderItemCard(id, item) {
   const itemType = item.type || "Lost";
-  const badgeClass = itemType.toLowerCase() === "lost" ? "badge-lost" : "badge-found";
-  
-  // Person 3 sends 'image' (Base64). Fallback to 'imageUrl' or placeholder.
-  const imageSrc = item.image || item.imageUrl || "https://via.placeholder.com/300x200?text=No+Image";
+  const badgeClass =
+    itemType.toLowerCase() === "lost"
+      ? "badge-lost"
+      : "badge-found";
+
+  // Person 3 sends 'image' (Base64).
+  // Fallback to imageUrl or the original placeholder.
+ const imageSrc = item.image || item.imageUrl || "";
 
   return `
-    <div class="card" data-id="${id}" data-category="${item.category || ''}" data-type="${itemType}">
-      <img src="${imageSrc}" alt="${item.title || 'Item'}" class="card-img" />
+    <div class="card" data-id="${id}" data-category="${item.category || ""}" data-type="${itemType}">
+      <img src="${imageSrc}" alt="${item.title || "Item"}" class="card-img" />
+
       <div class="card-body">
         <span class="badge ${badgeClass}">${itemType}</span>
-        <h3>${item.title || 'Untitled Item'}</h3>
-        <p><strong>Category:</strong> ${item.category || 'General'}</p>
-        <p><strong>Location:</strong> ${item.location || 'Campus'}</p>
-        <p><strong>Date:</strong> ${item.date || 'N/A'}</p>
-        <p>${item.description || ''}</p>
-        <p><strong>Contact:</strong> ${item.contact || 'N/A'}</p>
+
+        <h3>${item.title || "Untitled Item"}</h3>
+
+        <p><strong>Category:</strong> ${item.category || "General"}</p>
+
+        <p><strong>Location:</strong> ${item.location || "Campus"}</p>
+
+        <p><strong>Date:</strong> ${item.date || "N/A"}</p>
+
+        <p>${item.description || ""}</p>
+
+        <p><strong>Contact:</strong> ${item.contact || "N/A"}</p>
       </div>
     </div>
   `;
 }
 
 // -------------------------------------------------------------
-// 2. SAVE POST TO FIREBASE (Called directly by Person 3's Form)
+// 2. SAVE POST TO FIREBASE
 // -------------------------------------------------------------
 window.savePostToFirebase = async function (postPayload) {
   try {
     const postsRef = collection(db, "posts");
-    
+
     await addDoc(postsRef, {
       ...postPayload,
       createdAt: serverTimestamp()
@@ -86,14 +98,24 @@ document.addEventListener("DOMContentLoaded", () => {
 // -------------------------------------------------------------
 // 3. LIVE SEARCH & FILTER LOGIC
 // -------------------------------------------------------------
-function filterItems(selectedType = "All") {
+
+// Read the currently active Lost / Found / All button
+function getActiveTypeFilter() {
+  const activeBtn = document.querySelector(".filter-btn.active");
+  const type = activeBtn?.getAttribute("data-filter") || "All";
+
+  return type === "all" ? "All" : type;
+}
+
+function filterItems(selectedType = getActiveTypeFilter()) {
   const searchValue =
     document.getElementById("searchInput")?.value.toLowerCase() || "";
 
   const categoryFilter =
     document.getElementById("category-filter")?.value || "All";
 
-  const cards = document.querySelectorAll("#items-container .card");
+  const cards =
+    document.querySelectorAll("#items-container .card");
 
   cards.forEach((card) => {
     const title =
@@ -118,13 +140,19 @@ function filterItems(selectedType = "All") {
 
     const matchesCategory =
       categoryFilter === "All" ||
-      cardCategory.toLowerCase() === categoryFilter.toLowerCase();
+      cardCategory.toLowerCase() ===
+        categoryFilter.toLowerCase();
 
     const matchesType =
       selectedType === "All" ||
-      cardType.toLowerCase() === selectedType.toLowerCase();
+      cardType.toLowerCase() ===
+        selectedType.toLowerCase();
 
-    if (matchesSearch && matchesCategory && matchesType) {
+    if (
+      matchesSearch &&
+      matchesCategory &&
+      matchesType
+    ) {
       card.style.display = "block";
     } else {
       card.style.display = "none";
@@ -134,31 +162,38 @@ function filterItems(selectedType = "All") {
 
 // Search and category filter
 document.addEventListener("DOMContentLoaded", () => {
-  const searchBox = document.getElementById("searchInput");
-  const categoryFilter = document.getElementById("category-filter");
+  const searchBox =
+    document.getElementById("searchInput");
+
+  const categoryFilter =
+    document.getElementById("category-filter");
 
   if (searchBox) {
-    searchBox.addEventListener("input", () => filterItems());
+    searchBox.addEventListener("input", () => {
+      filterItems();
+    });
   }
 
   if (categoryFilter) {
-    categoryFilter.addEventListener("change", () => filterItems());
+    categoryFilter.addEventListener("change", () => {
+      filterItems();
+    });
   }
 
   // Lost / Found / All buttons
-  const filterButtons = document.querySelectorAll(".filter-btn");
+  const filterButtons =
+    document.querySelectorAll(".filter-btn");
 
   filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      filterButtons.forEach((btn) => btn.classList.remove("active"));
+
+      filterButtons.forEach((btn) => {
+        btn.classList.remove("active");
+      });
 
       button.classList.add("active");
 
-      const selectedType = button.getAttribute("data-filter");
-
-      filterItems(
-        selectedType === "all" ? "All" : selectedType
-      );
+      filterItems();
     });
   });
 });

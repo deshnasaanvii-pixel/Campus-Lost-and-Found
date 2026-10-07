@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 date: date,
                 contact: contact,
                 description: description,
-                image: base64ImageString || "https://via.placeholder.com/300x200?text=No+Image+Provided",
+                image: base64ImageString || "",
                 createdAt: new Date().toISOString()
             };
 
